@@ -1,0 +1,1 @@
+from .sanmarcos_2023_1_scrapper import Scrapper20231
