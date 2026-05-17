@@ -8,6 +8,7 @@ from urllib.parse import urljoin
 class Scrapper20231:
     def __init__(self, url:str):
         self.url = url
+        self.process_name = "resultados-admision-2023-1"
 
     def _scrape_page(self, base_url):
         """Función encargada de scrappear los nodos hijos del árbol de links"""
@@ -53,7 +54,7 @@ class Scrapper20231:
             visited.add(url)
             links = self._get_links(url) # Obtiene los links de la hoja
             links = [l for l in links if l.startswith("http") and l not in visited] # Se queda con los links absolutos
-            print(f"Link buscado: ", url)
+            print(f"Link scrapeado: ", url)
 
             if not links: # si no hay links significa que es un nodo hoja
                 data = self._scrape_page(url)
@@ -78,9 +79,9 @@ class Scrapper20231:
         df = pd.DataFrame(data, columns=["CODIGO", "NOMBRES Y APELLIDOS", "ESCUELA PROFESIONAL", "PUNTAJE", "ORDEN DE MÉRITO", "RESULTADO"])
         return df
 
+    def __str__(self):
+        return self.process_name
 
-    def run(self):
-        pass
 
 
 if __name__ == "__main__":
