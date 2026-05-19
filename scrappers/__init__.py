@@ -1,1 +1,2 @@
 from .sanmarcos_2023_1_scrapper import Scrapper20231
+from .scrapper_sanmarcos import SanMarcosScrapper
