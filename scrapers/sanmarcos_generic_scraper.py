@@ -1,11 +1,12 @@
 import requests
+import base64
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 from pandas import DataFrame
 import pandas as pd
 from urllib.parse import urljoin
 
-class SanMarcosGenericScrapper:
+class SanMarcosGenericScraper:
     def __init__(self, url:str, process_name:str = None):
         self.url = url
 
@@ -26,12 +27,34 @@ class SanMarcosGenericScrapper:
             if row.find("th"):
                 continue
                 
-            cols = [td.get_text(strip=True) for td in row.find_all("td")]
-            if not cols or all( c == "" for c in cols):
+            cols = []
+            for td in row.find_all("td"):
+                text = td.get_text(strip=True)
+
+                span_ofuscated = td.find("span", class_="obfuscated")
+                if not text and span_ofuscated and span_ofuscated.has_attr("data-auth"):
+                    try:
+                        base64_text = span_ofuscated["data-auth"]
+                        text = base64.b64decode(base64_text).decode("utf-8")
+                    except Exception as e:
+                        text = ""
+
+                
+                if not text and td.has_attr("data-score"):
+                    text = td["data-score"]
+                if not text and td.has_attr("data-merit"):
+                    text = td["data-merit"]
+                
+                cols.append(text)
+            
+            if not cols or all(c == "" for c in cols):
+                continue
+
+            if len(cols) < 5:
                 continue
 
             data.append(cols)
-        print(data)
+        print(f"Datos scrapeados en {base_url}: filas({len(data)}) - columnas({len(data[0]) if data else 0})")
         return data
 
 

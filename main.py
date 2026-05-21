@@ -1,5 +1,5 @@
 from scrapers import Scrapper20231
-from scrapers import SanMarcosScrapper
+from scrapers import SanMarcosScraper
 from interfaces import Scraper
 from pathlib import Path
 
@@ -56,6 +56,6 @@ if __name__ == "__main__":
     }
 
     url = "https://admision.unmsm.edu.pe/Res_20231_Area_A/index.html"
-    scraper = SanMarcosScrapper(**process["2026-1"])
+    scraper = SanMarcosScraper(**process["2026-1"])
     scrape(scraper)
 
