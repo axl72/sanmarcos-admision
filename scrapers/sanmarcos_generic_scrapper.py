@@ -5,7 +5,7 @@ from pandas import DataFrame
 import pandas as pd
 from urllib.parse import urljoin
 
-class SanMarcosScrapper:
+class SanMarcosGenericScrapper:
     def __init__(self, url:str, process_name:str = None):
         self.url = url
 
@@ -14,7 +14,7 @@ class SanMarcosScrapper:
 
         self.process_name = process_name
 
-    def _scrape_page(self, base_url):
+    def _scrape_page(self, base_url) -> list:
         """Función encargada de scrappear los nodos hijos del árbol de links"""
         r = requests.get(base_url)
         r.encoding = "utf-8"
@@ -31,6 +31,7 @@ class SanMarcosScrapper:
                 continue
 
             data.append(cols)
+        print(data)
         return data
 
 
