@@ -115,13 +115,3 @@ class SanMarcosGenericScraper:
 
     def __str__(self):
         return self.process_name
-
-
-
-if __name__ == "__main__":
-    # url = "https://admision.unmsm.edu.pe/Res_20231_Area_A/A/011/0.html"
-    url = "https://admision.unmsm.edu.pe/Res_20231_Area_A/"
-    scrapper = SanMarcosScrapper(url, "resultados-admision-2023-1")
-    result = scrapper.scrape()
-    print("Cantidad de filas: ", len(result))
-
