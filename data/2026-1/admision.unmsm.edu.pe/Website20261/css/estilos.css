@@ -1,0 +1,1 @@
+﻿body { background-color: #f8f9fa; }.card-header { background-color: #e9ecef; }td[data-score]::before { content: attr(data-score); }td[data-merit]::before { content: attr(data-merit); }
