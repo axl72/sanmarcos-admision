@@ -1,8 +1,13 @@
 from scrapers import SanMarcosGenericScraper
 from interfaces import Scraper
 from pathlib import Path
+from parser import Parser
 
 OUTPUT_DIR = Path("./results/")
+
+
+parser = Parser()
+args = parser.parse()
 
 def scrape(scraper: Scraper):
     
@@ -13,7 +18,7 @@ def scrape(scraper: Scraper):
 
 
 if __name__ == "__main__":
-    process = {
+    dict_process = {
         "2023-1": {
         "url": "https://admision.unmsm.edu.pe/Res_20231_Area_A/index.html",
         "process_name": "resultados-admision-2023-1"},
@@ -55,6 +60,10 @@ if __name__ == "__main__":
     }
 
     url = "https://admision.unmsm.edu.pe/Res_20231_Area_A/index.html"
-    scraper = SanMarcosGenericScraper(**process["2026-2"])
+
+    args = parser.parse()
+    args_process_name = args.process_name
+    process = dict_process[args_process_name]
+    scraper = SanMarcosGenericScraper(process["url"], process["process_name"])
     scrape(scraper)
 
